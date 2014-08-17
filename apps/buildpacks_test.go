@@ -31,4 +31,44 @@ var _ = Describe("Buildpacks", func() {
 		})
 	})
 
+	Describe("non_staticfile", func() {
+		It("fails to stage", func() {
+			Expect(cf.Cf("push", appName, "-p", helpers.NewAssets().NonStaticfile).Wait(CF_PUSH_TIMEOUT)).To(Exit(1))
+		})
+		// An app was not successfully detected by any available buildpack
+	})
+
+	Describe("alternate root", func() {
+		It("successfully stages and runs", func() {
+			Expect(cf.Cf("push", appName, "-p", helpers.NewAssets().AlternateRoot).Wait(CF_PUSH_TIMEOUT)).To(Exit(0))
+
+			Eventually(func() string {
+				return helpers.CurlAppRoot(appName)
+			}, DEFAULT_TIMEOUT).Should(ContainSubstring("This index file comes from an alternate root"))
+		})
+	})
+
+	Describe("basic auth", func() {
+		It("successfully stages and runs", func() {
+			Expect(cf.Cf("push", appName, "-p", helpers.NewAssets().BasicAuth).Wait(CF_PUSH_TIMEOUT)).To(Exit(0))
+
+			Eventually(func() string {
+				return helpers.CurlAppRoot(appName)
+			}, DEFAULT_TIMEOUT).Should(ContainSubstring("401 Authorization Required"))
+
+			Eventually(func() string {
+				return helpers.CurlAppRootWithAuth(appName, "bob", "bob")
+			}, DEFAULT_TIMEOUT).Should(ContainSubstring("This site is protected by basic auth."))
+		})
+	})
+
+	Describe("directory index", func() {
+		It("successfully stages and runs", func() {
+			Expect(cf.Cf("push", appName, "-p", helpers.NewAssets().DirectoryIndex).Wait(CF_PUSH_TIMEOUT)).To(Exit(0))
+
+			Eventually(func() string {
+				return helpers.CurlAppRoot(appName)
+			}, DEFAULT_TIMEOUT).Should(ContainSubstring("find-me.html"))
+		})
+	})
 })
