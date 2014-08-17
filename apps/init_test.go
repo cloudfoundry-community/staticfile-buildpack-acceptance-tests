@@ -7,7 +7,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	"github.com/cloudfoundry-community/staticfiles-buildpack-acceptance-tests/helpers"
+	"github.com/cloudfoundry-community/staticfile-buildpack-acceptance-tests/helpers"
 )
 
 const (

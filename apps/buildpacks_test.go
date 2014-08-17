@@ -5,7 +5,7 @@ import (
 	. "github.com/onsi/gomega"
 	. "github.com/onsi/gomega/gexec"
 
-	"github.com/cloudfoundry-community/staticfiles-buildpack-acceptance-tests/helpers"
+	"github.com/cloudfoundry-community/staticfile-buildpack-acceptance-tests/helpers"
 	"github.com/cloudfoundry-incubator/cf-test-helpers/cf"
 	"github.com/cloudfoundry-incubator/cf-test-helpers/generator"
 )
