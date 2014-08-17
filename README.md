@@ -5,6 +5,8 @@ This test suite exercises various example applications against a pre-installed h
 
 This project is based on the CATS test project. A Cloud Foundry is targeted the same way, and the tests are run the same way.
 
+The main tests are in [apps/buildpack_test.go](https://github.com/cloudfoundry-community/staticfile-buildpack-acceptance-tests/blob/master/apps/buildpack_test.go])
+
 Prerequisites
 -------------
 
