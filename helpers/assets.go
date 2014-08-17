@@ -6,6 +6,6 @@ type Assets struct {
 
 func NewAssets() Assets {
 	return Assets{
-		Normal: "../assets/normal",
+		Normal: "../assets/normal_staticfile",
 	}
 }

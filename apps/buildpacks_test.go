@@ -23,11 +23,11 @@ var _ = Describe("Buildpacks", func() {
 
 	Describe("normal", func() {
 		It("successfully stages and runs", func() {
-			Expect(cf.Cf("push", appName, "-p", helpers.NewAssets().Normal, "-c", "node app.js").Wait(CF_PUSH_TIMEOUT)).To(Exit(0))
+			Expect(cf.Cf("push", appName, "-p", helpers.NewAssets().Normal).Wait(CF_PUSH_TIMEOUT)).To(Exit(0))
 
 			Eventually(func() string {
 				return helpers.CurlAppRoot(appName)
-			}, DEFAULT_TIMEOUT).Should(ContainSubstring("Hello from a node app!"))
+			}, DEFAULT_TIMEOUT).Should(ContainSubstring("This is an example app for Cloud Foundry that is only static HTML/JS/CSS assets"))
 		})
 	})
 
